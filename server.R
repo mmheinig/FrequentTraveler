@@ -11,20 +11,11 @@ library(shiny)
 library(readr)
 library(visNetwork)
 
-nodes_travel_data <- read_csv("nodes_travel.csv") 
-edgelist_travel_usrcount_withnames <- read_csv("edgelist_travel_withnames_asdf.csv")   
+nodes_travel_data <- read_csv("nodes_travel_mcccode_usrcount.csv") 
+edgelist_travel_usrcount_withnames <- read_csv("edgelist_travel_mcccode_usrcount_withnames_asdf.csv")
   
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  #nodes_travel_data <- read_csv("~/Desktop/Insight/KOHO_Financial/TRAVEL/mcc_code/nodes_travel.csv") %>%
-  #nodes_travel <- read_csv("~/Desktop/Insight/KOHO_Financial/TRAVEL/mcc_code/nodes_travel_noisolates.csv", 
-  #col_types = cols(btwns_centrality = col_skip(), 
-  #                 close_centrality = col_skip(), degree = col_skip(), 
-  #                 koho_category = col_skip(), eigenvector_centrality = col_skip(), neighbors = col_skip())
-  #colnames(nodes_travel) <- c("id", "label", "travel", "group")
-  #edgelist_travel_usrcount <- read_csv("edgelist_travel_withnames_asdf.csv", 
-            #col_types = cols(from_name = col_skip(), 
-             #                to_name = col_skip()), stringsAsFactors = FALSE) %>%
   
   # network
   output$network <- renderVisNetwork({
@@ -37,11 +28,11 @@ shinyServer(function(input, output) {
     edges <- edgelist <- edgelist_travel_usrcount_withnames[,1:3]
     
     set.seed(777)
-    visNetwork(nodes, edges, height = "800px", width = "80%") %>%
+    visNetwork(nodes, edges, height = "900px", width = "80%") %>%
       visOptions(selectedBy = "group", 
                  highlightNearest = TRUE, 
                  nodesIdSelection = TRUE) %>%
-      visNodes(size = 15) %>%
+      visNodes(size = 10) %>%
       visPhysics(stabilization = FALSE, maxVelocity = 3)
   })
   
