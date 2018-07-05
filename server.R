@@ -47,6 +47,9 @@ shinyServer(function(input, output) {
     DT::datatable(edgelist_travel_usrcount_withnames, options = list(pageLength = 15))
   )
   
+  url <- a("Monika M. Heinig, PhD", href="www.linkedin.com/in/monika-heinig")
+  
+  output$url <- renderUI({ tagList("Link to my LinkedIn page:", url) })
   # you can also use paging = FALSE to disable pagination
   #output$ex3 <- DT::renderDataTable(
   #  DT::datatable(iris, options = list(paging = FALSE))
