@@ -7,26 +7,52 @@
 #    http://shiny.rstudio.com/
 #
 
+##################################
+#       LIBRARIES
+##################################
 library(shiny)
 library(readr)
 library(visNetwork)
 
-# Define UI for application that draws a histogram
+##################################
+#       UI for app
+##################################
 shinyUI(fluidPage(
   
-  # Application title
+###########################
+#  App Title
+###########################
   titlePanel("The Frequent Traveler"),
-  
+
+    ###########################
+    #  Tab/Navigavtion Bar Setup
+    ###########################
   navbarPage(
     title = 'Tabs',
+
+###########################
+#  Tab 1 -  Travel Network
+###########################
     tabPanel('Travel Network', 'This is a visualization of the travel network from 
              travel purchases. From the first drop down, you can select a merchant
              by name, as defined by merchant category code description.
              The second drop down allows you to focus on communities, as identified
              by the Louvain Community Detection Algorithm.', 
              visNetworkOutput("network")),
+
+#######################################
+#  Tab 2 -  Nodes & their Attributes
+#######################################
     tabPanel('Nodes & their Attributes',     DT::dataTableOutput('nodes')),
+
+###########################
+#  Tab 3 -  Edges
+###########################
     tabPanel('Edges',        DT::dataTableOutput('edges')),
+
+###########################
+#  Tab 4 -  Terminology
+###########################
     tabPanel('Terminology', 
              h5('Attributes'), 'information associated with nodes of the network',
              h5('Betweeenness centrality'), 'node attribute measuring centrality of the network based on shortest paths.',
@@ -51,7 +77,13 @@ shinyUI(fluidPage(
              h5('Travel Category'), 'categorization including Air Carrier, Hotel, Timeshares, Cruiselines, Travel Agency, Busline, Airport Terminal, and Tourist Attractions',
              h5('Weight'), 'value associated with the edge. In this case weight
              is the number of users who made purchases at both endnodes.'),
-    tabPanel('About', h3('Frequent Traveler'), 
+
+###########################
+#  Tab 5 -  About
+###########################
+    tabPanel('About',
+
+             h3('Frequent Traveler'), 
              'This web application, Frequent Traveler, is the result of a consulting 
              project for a Candian bank. From over half a million transactional 
              records, a network was constructed from travel purchases (about 1.25% of
@@ -59,12 +91,11 @@ shinyUI(fluidPage(
              network. The merchants are connected by edges (or links) if there was 
              at least one customer who made purchases at both merchants. These edges 
              (or links) became weighted with the weight of each edge being the number 
-             of customers who made purchases at both merchants.', 
+             of customers who made purchases at both merchants.',
+
              h3('About Me'), 'My name is Monika M. Heinig. I am currently a Fellow
                 at Insight Data Science and I have my PhD in Mathematics from Stevens Institute of Technology.', 
                 uiOutput('url'))
-    #tabPanel('No pagination',      DT::dataTableOutput('ex3'))
-    #tabPanel('No filtering',       DT::dataTableOutput('ex4')),
-    #tabPanel('Function callback',  DT::dataTableOutput('ex5'))
+
   )
 ))
